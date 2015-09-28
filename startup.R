@@ -74,6 +74,33 @@ write_cases_selex <- function(spp, case, scalar, dir=case_folder){
 }
 ### ------------------------------------------------------------
 
+write_cases_estimation <- function(spp, case, dir=case_folder){
+    ## Write a change_e case file for which params to estimate
+    pars <- c("L_at_Amin_Fem_GP_1", "L_at_Amax_Fem_GP_1",
+              "VonBert_K_Fem_GP_1", "CV_young_Fem_GP_1",
+              "CV_old_Fem_GP_1", "SR_BH_steep")
+    if(case==0){ ## M is estimated, steepness not
+        phases <- c(rep(-1, 5),-1)
+        M.est <- 'natM_val;c(NA,5)'
+    } else if(case==1) {
+        M.est <- 'natM_val;c(NA,-1)'
+        phases <- c(rep(-1, 5), 5)
+    } else {
+        stop('case not defined')
+    }
+    est <-
+        c(M.est, 'natM_type;1parm',
+          'natM_n_breakpoints; NULL',
+          'natM_lorenzen;NULL',
+          paste0('par_name;c(\'', paste0(pars[1:3], sep='\'', collapse=",\'"), ')'),
+          paste0('par_int;c(', paste0(rep(NA, len=length(pars)), collapse=","), ')'),
+          paste0('par_phase;c(', paste0(phases, collapse=','), ')'),
+          'forecast_num;1')
+    writeLines(est, con=paste0(dir,"/", "E", case,"-", spp, ".txt"))
+}
+
+
+
 ## Create case files dynamically for reproducibility
 unlink('cases', TRUE)
 dir.create('cases')
@@ -86,6 +113,8 @@ for(spp in species) {
                          ESS.scalar=ESS.scalar.vec[i]))
     trash <- sapply(seq_along(selex.scalar.vec), function(i)
         write_cases_selex(spp=spp, case=i, scalar=selex.scalar.vec[i]))
+    write_cases_estimation(spp, case=0)
+    write_cases_estimation(spp, case=1)
 }
 
 ## End of writing cases
