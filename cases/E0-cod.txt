@@ -1,4 +1,4 @@
-natM_val;c(NA,5)
+natM_val;c(NA,-1)
 natM_type;1parm
 natM_n_breakpoints; NULL
 natM_lorenzen;NULL
