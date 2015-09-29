@@ -57,9 +57,12 @@ ggplot(yy, aes(year, SpawnBio_om, group=selex.scalar, color=selex.scalar))+geom_
 ggplot(yy, aes(year, SSB_re, group=selex.scalar, color=selex.scalar))+geom_line() + ylim(-1,1)
 ### ------------------------------------------------------------
 
+## check the right parameters are estimated
 library(ss3models)
-par.df <- subset(get_parvalues('models', write_csv = FALSE), model=='cod')
-subset(par.df, PHASE.em>0, select=Label)
+par.df0 <- subset(get_parvalues('D1-E0-F1-S1-cod', write_csv = FALSE))
+par.df1 <- subset(get_parvalues('D1-E1-F1-S1-cod', write_csv = FALSE))
+subset(par.df0, PHASE.em>0, select=c(Label, model))
+subset(par.df1, PHASE.em>0, select=c(Label, model))
 par.df <- par.df[grep('_gp_1|sr_bh_steep', xx$Label),]
 par.df <- par.df[par.df$model=='cod',]
 
