@@ -92,7 +92,7 @@ write_cases_estimation <- function(spp, case, dir=case_folder){
         c(M.est, 'natM_type;1parm',
           'natM_n_breakpoints; NULL',
           'natM_lorenzen;NULL',
-          paste0('par_name;c(\'', paste0(pars[1:3], sep='\'', collapse=",\'"), ')'),
+          paste0('par_name;c(\'', paste0(pars, sep='\'', collapse=",\'"), ')'),
           paste0('par_int;c(', paste0(rep(NA, len=length(pars)), collapse=","), ')'),
           paste0('par_phase;c(', paste0(phases, collapse=','), ')'),
           'forecast_num;1')
