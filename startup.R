@@ -26,6 +26,8 @@ library(dplyr)
 library(doParallel)
 registerDoParallel(cores = cores)
 library("foreach")
+ggwidth <- 9
+ggheight <- 7
 message(paste(getDoParWorkers(), "cores have been registered for",
     "parallel processing."))
 message("Writing case files...")
@@ -79,12 +81,15 @@ write_cases_estimation <- function(spp, case, dir=case_folder){
     pars <- c("L_at_Amin_Fem_GP_1", "L_at_Amax_Fem_GP_1",
               "VonBert_K_Fem_GP_1", "CV_young_Fem_GP_1",
               "CV_old_Fem_GP_1", "SR_BH_steep")
-    if(case==0){ ## M is estimated, steepness not
+    if(case==0){ ## neither h nor M estimated
         phases <- c(rep(-1, 5),-1)
-        M.est <- 'natM_val;c(NA,5)'
-    } else if(case==1) {
+        M.est <- 'natM_val;c(NA,-1)'
+    } else if(case==1) { ## just h estimated
         M.est <- 'natM_val;c(NA,-1)'
         phases <- c(rep(-1, 5), 5)
+    } else if(case==2) { ## just M estimated
+        M.est <- 'natM_val;c(NA,5)'
+        phases <- c(rep(-1, 5), -1)
     } else {
         stop('case not defined')
     }
@@ -108,13 +113,12 @@ for(spp in species) {
     ## Get the F cases from the package since based on Fmsy
     file.copy(from=paste0("models/F1-", spp,'.txt'), to=case_folder)
     ## write the data and binning cases
-    trash <- sapply(seq_along(ESS.scalar.vec), function(i)
+    trash <- sapply(D.cases, function(i)
         write_cases_data(case=i, spp=spp, Nsamp=c(100,500),
                          ESS.scalar=ESS.scalar.vec[i]))
-    trash <- sapply(seq_along(selex.scalar.vec), function(i)
+    trash <- sapply(S.cases, function(i)
         write_cases_selex(spp=spp, case=i, scalar=selex.scalar.vec[i]))
-    write_cases_estimation(spp, case=0)
-    write_cases_estimation(spp, case=1)
+    trash <- sapply(E.cases, function(i)  write_cases_estimation(spp, case=i))
 }
 
 ## End of writing cases
