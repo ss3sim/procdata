@@ -103,7 +103,16 @@ write_cases_estimation <- function(spp, case, dir=case_folder){
     writeLines(est, con=paste0(dir,"/", "E", case,"-", spp, ".txt"))
 }
 
-
+D.cases <- seq_along(ESS.scalar.vec)
+D.df <- data.frame(pct.ess=ESS.scalar.vec, D=paste0('D', D.cases))
+S.cases <- seq_along(selex.scalar.vec)
+S.df <- data.frame(om_tv=factor(c("No Process Error", "Process Error")),
+                   S=paste0('S', S.cases))
+E.cases <- c(0,1,2)
+E.df <-
+    data.frame(estimated=factor(c("M & h fixed", "h estimated",
+               "M estimated"), levels=c("M & h fixed", "h estimated",
+                               "M estimated")), E=paste0('E', E.cases))
 
 ## Create case files dynamically for reproducibility
 unlink('cases', TRUE)
