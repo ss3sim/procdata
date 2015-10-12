@@ -3,13 +3,13 @@
 
 ### ------------------------------------------------------------
 ## Step 0: Prepare the R workspace and generate case files
-cores <- 4   # parallel cores
-## devtools::install("c:/Users/Cole/ss3sim")
+cores <- 8   # parallel cores
+## devtools::install_github("ss3sim/ss3sim")
 ## devtools::install_github('r4ss/r4ss')
 Nsim <- 1
 
 ## scalars used to control ESS in the data case files, 1 means true ESS
-ESS.scalar.vec <- sort(unique(c(1,exp(seq(log(.1),log(10), len=10)))))
+ESS.scalar.vec <- sort(unique(c(1,exp(seq(log(.1),log(10), len=8)))))
 selex.scalar.vec <- c(0,20)
 species <- c('cod', 'codtv')
 case_files <- list(F="F", D=c("index","lcomp","agecomp"), S='S', E='E')
