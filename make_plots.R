@@ -15,6 +15,8 @@ xx <- within(xx, {
 xx <- merge(xx, D.df, by="D")
 xx <- merge(xx, S.df, by="S")
 xx <- merge(xx, E.df, by="E")
+xx$selex.em <- xx$SizeSel_1P_1_Fishery_em
+years.ages <- get_caseargs(case_folder, 'D1-E0-F1-S1-cod', case_files=case_files)$agecomp$years[[1]]
 
 myylim <- ylim(-1,1)
 g <- ggplot(xx, aes(pct.ess, NatM_p_1_Fem_GP_1_re, group=replicate))+
@@ -61,38 +63,54 @@ om.devs2 <- data.frame(expand.grid(year=27:100, estimated=E.df$estimated,
                                      om_tv=S.df$om_tv[2], pct.ess=1.1))
 om.devs2$randwalk <- om.devs.vec2
 om.devs <- rbind(om.devs1, om.devs2)
-## Now get the estimated devs for a single replicate, then do cumsum to get
-## the random walk
-replicate.temp <- 1
-xx.devs <- droplevels(subset(xx, replicate==replicate.temp & species=='codtv'))
-temp <- c('species','replicate', 'estimated','pct.ess', 'F', 'om_tv')
-xx.devs <- xx.devs[,c(temp,names(xx.devs)[grep('DEVr.*_em', x=names(xx.devs))])]
-names(xx.devs) <- gsub('SizeSel_1P_1_Fishery_DEVrwalk_|_em', '', x=names(xx.devs))
-xx.devs.long <- melt(xx.devs, id.vars=temp,
-                     variable.name='year', value.name='dev')
-xx.devs.long$year <- as.numeric(as.character(xx.devs.long$year))
-xx.devs.long <- ddply(xx.devs.long, .variables=temp, mutate,
-                      randwalk=cumsum(dev))
+om.devs$replicate <- 1
+om.devs$randwalk <- om.devs$randwalk+50.8
 
-## Now combine and plot
-years.ages <- get_caseargs(case_folder, 'D1-E0-F1-S1-cod', case_files=case_files)$agecomp$years[[1]]
-g <- ggplot(xx.devs.long, aes(year, randwalk, group=pct.ess, color=pct.ess, linetype=pct.ess==1)) +
-  geom_line() + facet_grid(estimated~om_tv) + theme_bw()+
-      geom_line(data=om.devs, aes(year, randwalk), color='red', lwd=.5) +
-          geom_vline(xintercept=years.ages, lwd=.2, col=gray(.5)) +
-              ggtitle(paste("Random walk for replicate", replicate.temp))
-ggsave(paste0('plots/deviations_for_replicate_', replicate.temp, '.png'), g, width=9, height=5)
+## Setup the data in long format with random wlak by year as variables
+temp <- c('selex.em','species','replicate', 'estimated','pct.ess', 'F', 'om_tv')
+devs <- xx[,c(temp,names(xx)[grep('DEVr.*_em', x=names(xx))])]
+names(devs) <- gsub('SizeSel_1P_1_Fishery_DEVrwalk_|_em', '', x=names(devs))
+devs.long <- melt(devs, id.vars=temp, variable.name='year', value.name='dev')
+devs.long$year <- as.numeric(as.character(devs.long$year))
+devs.long <- ddply(devs.long, .variables=temp, mutate,
+                      randwalk=cumsum(dev)+ selex.em)
 
-## WARNING! this uses the local variable for replicate.temp from above
-for(year.temp in c(30, 40, 50, 60, 70, 80, 90, 99)){
-    temp <- ddply(subset(xx.devs.long, om_tv=='Process Error' & year==year.temp),
-                  .(pct.ess, om_tv), mutate,
-                  dev.re=(dev-dev[which(estimated=='M & h fixed')])/dev[which(estimated=='M & h fixed')])
-    g <- ggplot(temp, aes(pct.ess, dev.re, group=estimated, color=estimated))+ theme_bw()+
-        geom_line() + ggtitle(paste("Normalized Deviation for replicate",
-                                    replicate.temp, "in year", year.temp))
-    ggsave(paste0('plots/deviations_for_year_', year.temp, '.png'), g, width=9, height=5)
+## Plot the random walks as a function of E for a single rep
+for(replicate.temp in 1:5){
+    rep.devs.long <- subset(devs.long, replicate==replicate.temp & species=='codtv')
+    g <- ggplot(rep.devs.long, aes(year, randwalk, group=pct.ess, color=pct.ess, linetype=pct.ess==1)) +
+        geom_line() + facet_grid(estimated~om_tv) + theme_bw()+
+            geom_line(data=om.devs, aes(year, randwalk), color='red', lwd=.5) +
+                geom_vline(xintercept=years.ages, lwd=.2, col=gray(.5)) +
+                    ggtitle(paste("Random walk for replicate", replicate.temp))
+    ggsave(paste0('plots/deviations_for_replicate_', replicate.temp, '.png'),
+           g, width=ggwidth, height=ggheight)
 }
+## Plot the random walks for fixed ESS for all reps
+E.devs.long <- subset(devs.long, pct.ess==1)
+g <- ggplot(E.devs.long, aes(year, randwalk, group=replicate)) +
+    geom_line(alpha=.5) + geom_line(data=om.devs, aes(year, randwalk), color='red', lwd=.5) +
+        facet_grid(estimated~om_tv) + theme_bw()+
+            geom_vline(xintercept=years.ages, lwd=.2, col=gray(.5)) +
+                ggtitle(paste("Random walk for pct.ess=1"))
+ggsave(paste0('plots/deviations_for_ESS=1_','.png'), g, width=ggwidth, height=ggheight)
+### ------------------------------------------------------------
+
+
+
+
+
+
+## ## WARNING! this uses the local variable for replicate.temp from above
+## for(year.temp in c(30, 40, 50, 60, 70, 80, 90, 99)){
+##     temp <- ddply(subset(xx.devs.long, om_tv=='Process Error' & year==year.temp),
+##                   .(pct.ess, om_tv), mutate,
+##                   dev.re=(dev-dev[which(estimated=='M & h fixed')])/dev[which(estimated=='M & h fixed')])
+##     g <- ggplot(temp, aes(pct.ess, dev.re, group=estimated, color=estimated))+ theme_bw()+
+##         geom_line() + ggtitle(paste("Normalized Deviation for replicate",
+##                                     replicate.temp, "in year", year.temp))
+##     ggsave(paste0('plots/deviations_for_year_', year.temp, '.png'), g, width=9, height=5)
+## }
 
 
 

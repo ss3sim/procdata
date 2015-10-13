@@ -26,7 +26,7 @@ library(doParallel)
 registerDoParallel(cores = cores)
 library("foreach")
 ggwidth <- 9
-ggheight <- 7
+ggheight <- 5
 message(paste(getDoParWorkers(), "cores have been registered for",
     "parallel processing."))
 message("Writing case files...")
