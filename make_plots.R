@@ -15,41 +15,58 @@ xx <- within(xx, {
 xx <- merge(xx, D.df, by="D")
 xx <- merge(xx, S.df, by="S")
 xx <- merge(xx, E.df, by="E")
+yy <- merge(yy, D.df, by="D")
+yy <- merge(yy, S.df, by="S")
+yy <- merge(yy, E.df, by="E")
 xx$selex.em <- xx$SizeSel_1P_1_Fishery_em
 years.ages <- get_caseargs(case_folder, 'D1-E0-F1-S1-cod', case_files=case_files)$agecomp$years[[1]]
 
-myylim <- ylim(-1,1)
-g <- ggplot(xx, aes(pct.ess, NatM_p_1_Fem_GP_1_re, group=replicate))+
+myylim <- ylim(-1.5,1.5)
+g <- ggplot(xx, aes(log10(pct.ess), NatM_p_1_Fem_GP_1_re, group=replicate))+
     geom_line(alpha=.5) + facet_grid(estimated~om_tv+species) +
-    geom_vline(xintercept=1, col='blue') +
+    geom_vline(xintercept=0, col='blue') +
     geom_hline(yintercept=0, col='red') + myylim + theme_bw()
 ggsave('plots/M_re.png', g, width=ggwidth, height=ggheight)
-g <- ggplot(xx, aes(pct.ess, SR_BH_steep_re, group=replicate))+
+g <- ggplot(xx, aes(log10(pct.ess), SR_BH_steep_re, group=replicate))+
     geom_line(alpha=.5) + facet_grid(estimated~om_tv+species) +
-    geom_vline(xintercept=1, col='blue') +
+    geom_vline(xintercept=0, col='blue') +
     geom_hline(yintercept=0, col='red') + myylim+ theme_bw()
 ggsave('plots/steepness_re.png', g, width=ggwidth, height=ggheight)
-g <- ggplot(xx, aes(pct.ess, SSB_MSY_re, group=replicate))+
+g <- ggplot(xx, aes(log10(pct.ess), SSB_MSY_re, group=replicate))+
     geom_line(alpha=.5) + facet_grid(estimated~om_tv+species) +
-    geom_vline(xintercept=1, col='blue') +
+    geom_vline(xintercept=0, col='blue') +
     geom_hline(yintercept=0, col='red') + myylim+ theme_bw()
 ggsave('plots/SSB_MSY_re.png', g, width=ggwidth, height=ggheight)
-g <- ggplot(xx, aes(pct.ess, depletion_re, group=replicate))+
+g <- ggplot(xx, aes(log10(pct.ess), depletion_re, group=replicate))+
     geom_line(alpha=.5) + facet_grid(estimated~om_tv+species) +
-    geom_vline(xintercept=1, col='blue') +
+    geom_vline(xintercept=0, col='blue') +
     geom_hline(yintercept=0, col='red') + myylim+ theme_bw()
 ggsave('plots/depletion_re.png', g, width=ggwidth, height=ggheight)
-g <- ggplot(xx, aes(pct.ess, terminalSSB_re, group=replicate))+
+g <- ggplot(xx, aes(log10(pct.ess), terminalSSB_re, group=replicate))+
     geom_line(alpha=.5) + facet_grid(estimated~om_tv+species) +
-    geom_vline(xintercept=1, col='blue') +
+    geom_vline(xintercept=0, col='blue') +
     geom_hline(yintercept=0, col='red') + myylim+ theme_bw()
 ggsave('plots/terminalSSB_re.png', g, width=ggwidth, height=ggheight)
-g <- ggplot(xx, aes(pct.ess, F_MSY_re, group=replicate))+
+g <- ggplot(xx, aes(log10(pct.ess), F_MSY_re, group=replicate))+
     geom_line(alpha=.5) + facet_grid(estimated~om_tv+species) +
-    geom_vline(xintercept=1, col='blue') +
+    geom_vline(xintercept=0, col='blue') +
     geom_hline(yintercept=0, col='red') + myylim+ theme_bw()
 ggsave('plots/Fmsy_re.png', g, width=ggwidth, height=ggheight)
 
+## Look at time series plots by estimation group
+for(E.temp in c("E1", "E2", "E0")){
+myylim <- ylim(-4,4)
+df <- droplevels(subset(yy, E==E.temp & S == 'S2'))
+g <- ggplot(df, aes(year, SpawnBio_re, group=replicate))+ geom_line(alpha=.5) +
+    facet_grid(pct.ess~species) + theme_bw() + myylim +    geom_hline(yintercept=0, col='red')
+ggsave(paste0('plots/ts_SSB_', E.temp, '_re.png'), g, width=ggwidth, height=7)
+g <- ggplot(df, aes(year, F_re, group=replicate))+ geom_line(alpha=.5) +
+    facet_grid(pct.ess~species) + theme_bw()+ myylim +    geom_hline(yintercept=0, col='red')
+ggsave(paste0('plots/ts_F_', E.temp, '_re.png'), g, width=ggwidth, height=7)
+g <- ggplot(df, aes(year, Recruit_0_re, group=replicate))+ geom_line(alpha=.5) +
+    facet_grid(pct.ess~species)+ theme_bw()+ myylim+    geom_hline(yintercept=0, col='red')
+ggsave(paste0('plots/ts_recruits_', E.temp, '_re.png'), g, width=ggwidth, height=7)
+}
 
 ### ------------------------------------------------------------
 ### Look at the estimated deviations from codtv models
