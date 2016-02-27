@@ -1,0 +1,76 @@
+"file","caption","category","png_time"
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//bio1_sizeatage.png","Length at age in the beginning of the year (or season) in the ending year of the model. Shaded area indicates 95% distribution of length at age around estimated growth curve.","Bio",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//bio2_sizeatage_plus_CV_and_SD.png","Length at age (top-left panel) with CV (thick line) and SD (thin line) of length at age shown in top-right and lower-left panels","Bio",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//bio3_sizeatage_plus_WT_and_MAT.png","Length at age (top-left panel) with weight (thick line) and maturity (thin line) shown in top-right and lower-left panels","Bio",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//bio4_weightatsize.png","Weight-length relationship for females","Bio",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//bio5_maturity.png","Maturity at length","Bio",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//bio6_fecundity.png","Fecundity","Bio",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//bio9_spawningoutput.png","Spawning output at length","Bio",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss/sel01_multiple_fleets_length1.png","Selectivity at length for multiple fleets.","Sel",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss/sel02_multiple_fleets_age1.png","Selectivity at age for multiple fleets.","Sel",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss/sel02_multiple_fleets_age2.png","Selectivity at age derived from selectivity at length for multiple fleets.","Sel",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss/sel09_len_flt1sex1.png","Ending year selectivity for Fishery","Sel",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss/sel09_len_flt2sex1.png","Ending year selectivity for Survey","Sel",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss/sel09_len_flt3sex1.png","Ending year selectivity for CPUE","Sel",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss/sel21_agelen_contour_flt1sex1.png","Ending year selectivity and growth for Fishery","Sel",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss/sel21_agelen_contour_flt2sex1.png","Ending year selectivity and growth for Survey","Sel",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss/sel21_agelen_contour_flt3sex1.png","Ending year selectivity and growth for CPUE","Sel",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss/ts1_Total_biomass_(mt).png","Total biomass (mt)","Timeseries",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss/ts4_Summary_biomass_(mt).png","Summary biomass (mt)","Timeseries",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss/ts7_Spawning_output.png","Spawning output","Timeseries",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss/ts9_Spawning_depletion.png","Spawning depletion","Timeseries",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss/ts11_Age-0_recruits_(1000s).png","Age-0 recruits (1,000s)","Timeseries",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//ts_summaryF.png","Summary F (definition of F depends on setting in starter.ss)","Timeseries",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//recdevs1_points.png","Recruitment deviations","RecDev",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//SR_curve.png","Spawner-recruit curve","S-R",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//SR_curve2.png","Spawner-recruit curve with labels on first, last, and years with (log) deviations > 0.5","S-R",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//catch1 landings.png","landings","Catch",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//catch9 harvest rate.png","harvest rate","Catch",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss///SPR1_series.png","Timeseries of SPR","SPR",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss///SPR2_minusSPRseries.png","Timeseries of 1-SPR","SPR",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss///SPR4_phase.png","Phase plot of biomass ratio vs. SPR ratio","SPR",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//index2_cpuefit_Survey.png","Fit to index data for Survey. Lines indicate 95% uncertainty interval around index values. Thicker lines (if present) indicate input uncertainty before addition of estimated additional uncertainty parameter.","Index",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//index3_cpuecheck_Survey.png","Observed vs. expected index values with smoother for Survey","Index",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//index5_logcpuefit_Survey.png","Fit to log index data on log scale for Survey. Lines indicate 95% uncertainty interval around index values. Thicker lines (if present) indicate input uncertainty before addition of estimated additional uncertainty parameter.","Index",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//index6_logcpuecheck_Survey.png","log(observed) vs. log(expected) index values with smoother for Survey","Index",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//numbers1_sex1_beg.png","Beginning of year expected numbers at age in (max ~ 172.0 billion)","Numbers",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//numbers1_sex1_mid.png","Middle of year expected numbers at age in (max ~ 155.7 billion)","Numbers",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//numbers6_len_sex1.png","Beginning of year expected numbers at length in (max ~ 144.8 billion)","Numbers",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//numbers6_len_sex1.png","Middle of year expected numbers at length in (max ~ 38.5 billion)","Numbers",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//numbers4_equilagecomp.png","Equilibrium age distribution","Numbers",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//numbers5_ageerrorSD.png","Ageing imprecision: SD of observed age (yr)","Numbers",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//numbers5_ageerror_matrix_1.png","Ageing imprecision: matrix for method 1","Numbers",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//comp_lenfit_flt1mkt0_page1.png","length comps, whole catch, Fishery (plot 1 of 3)","LenComp",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//comp_lenfit_flt1mkt0_page2.png","length comps, whole catch, Fishery (plot 2 of 3)","LenComp",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//comp_lenfit_flt1mkt0_page3.png","length comps, whole catch, Fishery (plot 3 of 3)","LenComp",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//comp_lenfit_residsflt1mkt0_page3.png","Pearson residuals, whole catch, Fishery (max=2.07) (plot 3 of 3) <br> 
+Closed bubbles are positive residuals (observed > expected) and open bubbles are negative residuals (observed < expected).","LenComp",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//comp_lenfit_sampsize_flt1mkt0.png","N-EffN comparison, length comps, whole catch, Fishery","LenComp",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//comp_lenfit_data_weighting_TA1.8_Fishery.png","Francis data weighting method TA1.8 Fishery <br> Suggested sample size adjustment (with 95% interval) for len data from Fishery:<br>16.064 (11.5469-25.9022)","LenComp",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//comp_lenfit_flt2mkt0.png","length comps, whole catch, Survey","LenComp",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//comp_lenfit_residsflt2mkt0.png","Pearson residuals, whole catch, Survey (max=1.18) <br> 
+Closed bubbles are positive residuals (observed > expected) and open bubbles are negative residuals (observed < expected).","LenComp",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//comp_lenfit_sampsize_flt2mkt0.png","N-EffN comparison, length comps, whole catch, Survey","LenComp",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//comp_lenfit_data_weighting_TA1.8_Survey.png","Francis data weighting method TA1.8 Survey <br> Suggested sample size adjustment (with 95% interval) for len data from Survey:<br>6.6957 (3.8626-39.8152)","LenComp",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//comp_lenfit_mkt0_aggregated_across_time.png","length comps, whole catch, aggregated across time by fleet","LenComp",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//comp_lenfit_sex1mkt0_multi-fleet_comparison.png","Note: this plot doesn't seem to be working right for some models.<br><br> Pearson residuals, sexes combined, whole catch, comparing across fleets <br> 
+Closed bubbles are positive residuals (observed > expected) and open bubbles are negative residuals (observed < expected).","LenComp",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//comp_agefit_flt1mkt0_page1.png","age comps, whole catch, Fishery (plot 1 of 3)","AgeComp",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//comp_agefit_flt1mkt0_page2.png","age comps, whole catch, Fishery (plot 2 of 3)","AgeComp",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//comp_agefit_flt1mkt0_page3.png","age comps, whole catch, Fishery (plot 3 of 3)","AgeComp",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//comp_agefit_residsflt1mkt0_page3.png","Pearson residuals, whole catch, Fishery (max=1.94) (plot 3 of 3) <br> 
+Closed bubbles are positive residuals (observed > expected) and open bubbles are negative residuals (observed < expected).","AgeComp",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//comp_agefit_sampsize_flt1mkt0.png","N-EffN comparison, age comps, whole catch, Fishery","AgeComp",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//comp_agefit_data_weighting_TA1.8_Fishery.png","Francis data weighting method TA1.8 Fishery <br> Suggested sample size adjustment (with 95% interval) for age data from Fishery:<br>14.3812 (9.6272-26.279)","AgeComp",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//comp_agefit_flt2mkt0.png","age comps, whole catch, Survey","AgeComp",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//comp_agefit_residsflt2mkt0.png","Pearson residuals, whole catch, Survey (max=1.31) <br> 
+Closed bubbles are positive residuals (observed > expected) and open bubbles are negative residuals (observed < expected).","AgeComp",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//comp_agefit_sampsize_flt2mkt0.png","N-EffN comparison, age comps, whole catch, Survey","AgeComp",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//comp_agefit_data_weighting_TA1.8_Survey.png","Francis data weighting method TA1.8 Survey <br> Suggested sample size adjustment (with 95% interval) for age data from Survey:<br>16.9823 (10.5496-54.7302)","AgeComp",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//comp_agefit_mkt0_aggregated_across_time.png","age comps, whole catch, aggregated across time by fleet","AgeComp",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//comp_agefit_sex1mkt0_multi-fleet_comparison.png","Note: this plot doesn't seem to be working right for some models.<br><br> Pearson residuals, sexes combined, whole catch, comparing across fleets <br> 
+Closed bubbles are positive residuals (observed > expected) and open bubbles are negative residuals (observed < expected).","AgeComp",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss/yield1_yield_curve.png","Yield curve","Yield",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss/yield2_Hilborn_surplus_production.png","Surplus production plot. For interpretation, see<br> <blockquote>Walters, Hilborn, and  Christensen, 2008, Surplus production dynamics in declining and recovering fish populations. <i>Can. J. Fish. Aquat. Sci.</i> 65: 2536-2551.</blockquote>","Yield",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//data_plot.png","Data presence by year for each fleet","Data",2016-02-26 17:07:04
+"D1-E0-F1-S1-cod/1/em//../../../plots/r4ss//data_plot2.png","Data presence by year for each fleet, where circle area is relative <br>  within a data type, and proportional to precision for indices and compositions, <br>  and absolute catch for catches","Data",2016-02-26 17:07:04
