@@ -1,3 +1,9 @@
+if(file.exists('D1-E0-F1-S1-cod')){
+    out <- r4ss::SS_output('D1-E0-F1-S1-cod/1/em/', covar=FALSE, ncols=300)
+    SS_plots(replist=out, uncertainty=FALSE, png=TRUE, html=FALSE,
+             printfolder='../../../plots/r4ss')
+}
+
 
 ## Make overall plots of performance
 xx <- readRDS('results/scalars.RData')
@@ -152,16 +158,16 @@ ggsave(paste0('plots/deviations_for_ESS=1_','.png'), g, width=ggwidth, height=gg
 
 
 
-## ## Look at trend in process error in selex
-## S1.devs <- as.numeric(unlist(get_caseargs(case_folder, 'D1-E0-F1-S1-cod', case_files=case_files)$tv_params))
-## S2.devs <- as.numeric(unlist(get_caseargs(case_folder, 'D1-E0-F1-S2-cod', case_files=case_files)$tv_params))
-## sd(diff(S2.devs[27:100]))
-## devs.df <- data.frame(cbind(years=1:100, S1=S1.devs, S2=S2.devs))
-## devs.df.long <- melt(devs.df, 'years', variable.name='S')
-## devs.df.long <- merge(devs.df.long, S.df, by='S')
-## g <- ggplot(devs.df.long, aes(years, value+50.8, group=om_tv, color=om_tv))+
-##     geom_line() + ylab('Sel_P1') + theme_bw()
-## ggsave('plots/process_errors.png', g, width=ggwidth, height=ggheight)
+## Look at trend in process error in selex
+S1.devs <- as.numeric(unlist(get_caseargs(case_folder, 'D1-E0-F1-S1-cod', case_files=case_files)$tv_params))
+S2.devs <- as.numeric(unlist(get_caseargs(case_folder, 'D1-E0-F1-S2-cod', case_files=case_files)$tv_params))
+sd(diff(S2.devs[27:100]))
+devs.df <- data.frame(cbind(years=1:100, S1=S1.devs, S2=S2.devs))
+devs.df.long <- melt(devs.df, 'years', variable.name='S')
+devs.df.long <- merge(devs.df.long, S.df, by='S')
+g <- ggplot(devs.df.long, aes(years, value+50.8, group=om_tv, color=om_tv))+
+    geom_line() + ylab('Sel_P1') + theme_bw()
+ggsave('plots/process_errors.png', g, width=ggwidth, height=ggheight)
 
 
 ## ## Look at differences in OM biomass trajectories for an arbitrary iteration
