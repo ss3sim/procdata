@@ -6,7 +6,7 @@
 cores <- 4   # parallel cores
 ## devtools::install_github("ss3sim/ss3sim")
 ## devtools::install_github('r4ss/r4ss')
-Nsim <- 1
+Nsim <- 4
 
 ## scalars used to control ESS in the data case files, 1 means true ESS
 ESS.scalar.vec <- c(.1, 1, 10)
@@ -22,16 +22,23 @@ scenarios.cod <-
     expand_scenarios(cases=list(D=D.cases, F=1, S=S.cases, E=E.cases),
                      species='cod')
 run_ss3sim(iterations=1:Nsim, scenarios=scenarios.cod,
-           parallel=TRUE, parallel_iterations=FALSE,
+           parallel=TRUE, parallel_iterations=TRUE,
            case_folder=case_folder, om_dir=om.paths['cod'],
            em_dir=em.paths['cod'], case_files=case_files)
 scenarios.codtv <-
     expand_scenarios(cases=list(D=D.cases, F=1, S=S.cases, E=E.cases),
                      species='codtv')
 run_ss3sim(iterations=1:Nsim, scenarios=scenarios.codtv,
-           parallel=TRUE, parallel_iterations=FALSE,
+           parallel=TRUE, parallel_iterations=TRUE,
            case_folder=case_folder, om_dir=om.paths['codtv'],
            em_dir=em.paths['codtv'], case_files=case_files)
+scenarios.codtv2 <-
+    expand_scenarios(cases=list(D=D.cases, F=1, S=S.cases, E=E.cases),
+                     species='codtv2')
+run_ss3sim(iterations=1:Nsim, scenarios=scenarios.codtv2,
+           parallel=TRUE, parallel_iterations=TRUE,
+           case_folder=case_folder, om_dir=om.paths['codtv2'],
+           em_dir=em.paths['codtv2'], case_files=case_files)
 ## Read in results for both species
 get_results_all(user=c(scenarios.codtv, scenarios.cod), parallel=TRUE)
 
