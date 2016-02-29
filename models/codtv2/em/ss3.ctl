@@ -145,7 +145,7 @@
  
 ### Cole added random walk to SizeSel_1P_1_Fishery on 10/12/15
 #_LO HI INIT PRIOR PR_type SD PHASE      env-var use_dev dev_minyr dev_maxyr dev_stddev Block Block_Fxn
- 5.08 101.6 50.8 50.8 -1 0.05 2     0 3 27 100 0.482455 0 0 # SizeSel_1P_1_Fishery
+ 5.08 101.6 50.8 50.8 -1 0.05 2     0 3 27 100 0.96491 0 0 # SizeSel_1P_1_Fishery
  -5 3 -3 -3 -1 0.05 -99 0 0 0 0 0 0 0 # SizeSel_1P_2_Fishery
  0 25.5 5.1 5.1 -1 0.05 3 0 0 0 0 0 0 0 # SizeSel_1P_3_Fishery
  -2 16 15 15 -1 0.05 -99 0 0 0 0 0 0 0 # SizeSel_1P_4_Fishery

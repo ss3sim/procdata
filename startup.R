@@ -9,8 +9,8 @@ case_folder <- 'cases'
 ## Used to get models from the ss3models package, but manually moved them
 ## into this repo for better long-term reproducibility. The F case files
 ## are also there.
-em.paths <- list('cod'='models/cod/em', 'codtv'='models/codtv/em')
-om.paths <- list('cod'='models/cod/om', 'codtv'='models/codtv/om')
+em.paths <- list('cod'='models/cod/em', 'codtv'='models/codtv/em', 'codtv2'='models/codtv2/em')
+om.paths <- list('cod'='models/cod/om', 'codtv'='models/codtv/om', 'codtv2'='models/codtv2/om')
 
 ## devtools::install_github("ss3sim/ss3sim")
 ## install("../ss3sim")
@@ -104,7 +104,11 @@ write_cases_estimation <- function(spp, case, dir=case_folder){
 }
 
 D.cases <- seq_along(ESS.scalar.vec)
-D.df <- data.frame(pct.ess=ESS.scalar.vec, D=paste0('D', D.cases))
+D.df <-
+    data.frame(pct.ess=ESS.scalar.vec,
+               D=paste0('D', D.cases),
+               weighted=factor(c('Under-weighted', 'Right-weighted', 'Over-weighted'),
+               levels=c('Under-weighted', 'Right-weighted', 'Over-weighted')))
 S.cases <- seq_along(selex.scalar.vec)
 S.df <- data.frame(om_tv=factor(c("No Process Error", "Process Error")),
                    S=paste0('S', S.cases))

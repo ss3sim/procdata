@@ -9,9 +9,9 @@ cores <- 4   # parallel cores
 Nsim <- 1
 
 ## scalars used to control ESS in the data case files, 1 means true ESS
-ESS.scalar.vec <- sort(unique(c(1,exp(seq(log(.1),log(10), len=5)))))
+ESS.scalar.vec <- c(.1, 1, 10)
 selex.scalar.vec <- c(0,20)
-species <- c('cod', 'codtv')
+species <- c('cod', 'codtv', 'codtv2')
 case_files <- list(F="F", D=c("index","lcomp","agecomp"), S='S', E='E')
 source("startup.R")
 ### ------------------------------------------------------------
