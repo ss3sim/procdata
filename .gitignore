@@ -2,5 +2,6 @@ tv_examples
 cases
 *-cod
 *-codtv
+*-codtvx
 .Rhistory
 ss3sim_*.csv

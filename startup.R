@@ -9,8 +9,8 @@ case_folder <- 'cases'
 ## Used to get models from the ss3models package, but manually moved them
 ## into this repo for better long-term reproducibility. The F case files
 ## are also there.
-em.paths <- list('cod'='models/cod/em', 'codtv'='models/codtv/em', 'codtv2'='models/codtv2/em')
-om.paths <- list('cod'='models/cod/om', 'codtv'='models/codtv/om', 'codtv2'='models/codtv2/om')
+em.paths <- list('cod'='models/cod/em', 'codtv'='models/codtv/em', 'codtvx'='models/codtvx/em')
+om.paths <- list('cod'='models/cod/om', 'codtv'='models/codtv/om', 'codtvx'='models/codtvx/om')
 
 ## devtools::install_github("ss3sim/ss3sim")
 ## install("../ss3sim")
