@@ -17,7 +17,7 @@ source("startup.R")
 ### ------------------------------------------------------------
 
 ### ------------------------------------------------------------
-## Run the simulation for the two species
+## Step 1: Run the simulation and process the results
 scenarios.cod <-
     expand_scenarios(cases=list(D=D.cases, F=1, S=S.cases, E=E.cases),
                      species='cod')
@@ -39,11 +39,14 @@ run_ss3sim(iterations=1:Nsim, scenarios=scenarios.codtvx,
            parallel=TRUE, parallel_iterations=TRUE,
            case_folder=case_folder, om_dir=om.paths['codtvx'],
            em_dir=em.paths['codtvx'], case_files=case_files)
-## Read in results for both species
+## Read in results for both species and save them to file
 get_results_all(user=c(scenarios.codtvx, scenarios.codtv, scenarios.cod),
                 parallel=TRUE)
-
 xx <- calculate_re(read.csv("ss3sim_scalar.csv"))
 saveRDS(xx, file='results/scalars.RData')
 yy <- calculate_re(read.csv("ss3sim_ts.csv"))
 saveRDS(yy, file='results/ts.RData')
+### ------------------------------------------------------------
+
+### ------------------------------------------------------------
+## Step 2: Make plots and figures
