@@ -7,7 +7,6 @@ cores <- 8   # parallel cores
 ## devtools::install_github("ss3sim/ss3sim")
 ## devtools::install_github('r4ss/r4ss')
 Nsim <- 200
-
 ## scalars used to control ESS in the data case files, 1 means true ESS
 ESS.scalar.vec <- c(.1, 1, 10)
 selex.scalar.vec <- c(0,20)
@@ -50,3 +49,4 @@ saveRDS(yy, file='results/ts.RData')
 
 ### ------------------------------------------------------------
 ## Step 2: Make plots and figures
+source('make_plots.R')

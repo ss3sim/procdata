@@ -1,9 +1,3 @@
-if(file.exists('D1-E0-F1-S1-cod')){
-    out <- r4ss::SS_output('D1-E0-F1-S1-cod/1/em/', covar=FALSE, ncols=300)
-    SS_plots(replist=out, uncertainty=FALSE, png=TRUE, html=FALSE,
-             printfolder='../../../plots/r4ss')
-}
-
 
 ## Make overall plots of performance
 xx <- readRDS('results/scalars.RData')
@@ -21,57 +15,47 @@ xx <- within(xx, {
 xx <- merge(xx, D.df, by="D")
 xx <- merge(xx, S.df, by="S")
 xx <- merge(xx, E.df, by="E")
+xx <- merge(xx, species.df, by="species")
 yy <- merge(yy, D.df, by="D")
 yy <- merge(yy, S.df, by="S")
 yy <- merge(yy, E.df, by="E")
+yy <- merge(yy, species.df, by="species")
 xx$selex.em <- xx$SizeSel_1P_1_Fishery_em
 years.ages <- get_caseargs(case_folder, 'D1-E0-F1-S1-cod', case_files=case_files)$agecomp$years[[1]]
+xx$M_re <- xx$NatM_p_1_Fem_GP_1_re
+xx$steepness_re <- xx$SR_BH_steep_re
+xx$Fmsy_re <- xx$F_MSY_re
+## ## make sure we got the right number of replicates
+## test <- subset(xx, S=='S1' & E=='E0' & species=='cod' & D=='D2')
+##
+## drop those with too high max grad (very crude proxy for convergence)
+xx <- subset(xx, max_grad < .1)
 
+vars <- c('M_re', 'steepness_re', 'Fmsy_re', 'SSB_MSY_re',
+          'terminalSSB_re', 'depletion_re')
 myylim <- ylim(-1.5,1.5)
-g <- ggplot(xx, aes(log10(pct.ess), NatM_p_1_Fem_GP_1_re, group=replicate))+
-    geom_line(alpha=.5) + facet_grid(estimated~om_tv+species) +
-    geom_vline(xintercept=0, col='blue') +
-    geom_hline(yintercept=0, col='red') + myylim + theme_bw()
-ggsave('plots/M_re.png', g, width=ggwidth, height=ggheight)
-g <- ggplot(xx, aes(log10(pct.ess), SR_BH_steep_re, group=replicate))+
-    geom_line(alpha=.5) + facet_grid(estimated~om_tv+species) +
-    geom_vline(xintercept=0, col='blue') +
-    geom_hline(yintercept=0, col='red') + myylim+ theme_bw()
-ggsave('plots/steepness_re.png', g, width=ggwidth, height=ggheight)
-g <- ggplot(xx, aes(log10(pct.ess), SSB_MSY_re, group=replicate))+
-    geom_line(alpha=.5) + facet_grid(estimated~om_tv+species) +
-    geom_vline(xintercept=0, col='blue') +
-    geom_hline(yintercept=0, col='red') + myylim+ theme_bw()
-ggsave('plots/SSB_MSY_re.png', g, width=ggwidth, height=ggheight)
-g <- ggplot(xx, aes(log10(pct.ess), depletion_re, group=replicate))+
-    geom_line(alpha=.5) + facet_grid(estimated~om_tv+species) +
-    geom_vline(xintercept=0, col='blue') +
-    geom_hline(yintercept=0, col='red') + myylim+ theme_bw()
-ggsave('plots/depletion_re.png', g, width=ggwidth, height=ggheight)
-g <- ggplot(xx, aes(log10(pct.ess), terminalSSB_re, group=replicate))+
-    geom_line(alpha=.5) + facet_grid(estimated~om_tv+species) +
-    geom_vline(xintercept=0, col='blue') +
-    geom_hline(yintercept=0, col='red') + myylim+ theme_bw()
-ggsave('plots/terminalSSB_re.png', g, width=ggwidth, height=ggheight)
-g <- ggplot(xx, aes(log10(pct.ess), F_MSY_re, group=replicate))+
-    geom_line(alpha=.5) + facet_grid(estimated~om_tv+species) +
-    geom_vline(xintercept=0, col='blue') +
-    geom_hline(yintercept=0, col='red') + myylim+ theme_bw()
-ggsave('plots/Fmsy_re.png', g, width=ggwidth, height=ggheight)
+for(v in vars){
+    g <- ggplot(xx, aes_string(x='estimated', y=v, fill='estimated')) + geom_violin()+
+        facet_grid(weighted~om.process+em.process) +  geom_hline(yintercept=0, col='red') +
+            myylim + theme(legend.position='none')
+    ggsave(paste0('plots/scalars_',v,'.png'), g, width=ggwidth, height=ggheight)
+}
 
-## Look at time series plots by estimation group
-for(E.temp in c("E1", "E2", "E0")){
+## Look at time series plots by estimation group (E) and OM process error (S)
 myylim <- ylim(-4,4)
-df <- droplevels(subset(yy, E==E.temp & S == 'S2'))
-g <- ggplot(df, aes(year, SpawnBio_re, group=replicate))+ geom_line(alpha=.5) +
-    facet_grid(pct.ess~species) + theme_bw() + myylim +    geom_hline(yintercept=0, col='red')
-ggsave(paste0('plots/ts_SSB_', E.temp, '_re.png'), g, width=ggwidth, height=7)
-g <- ggplot(df, aes(year, F_re, group=replicate))+ geom_line(alpha=.5) +
-    facet_grid(pct.ess~species) + theme_bw()+ myylim +    geom_hline(yintercept=0, col='red')
-ggsave(paste0('plots/ts_F_', E.temp, '_re.png'), g, width=ggwidth, height=7)
-g <- ggplot(df, aes(year, Recruit_0_re, group=replicate))+ geom_line(alpha=.5) +
-    facet_grid(pct.ess~species)+ theme_bw()+ myylim+    geom_hline(yintercept=0, col='red')
-ggsave(paste0('plots/ts_recruits_', E.temp, '_re.png'), g, width=ggwidth, height=7)
+for(e in E.df$estimated){
+    for(s in S.df$om.process){
+        df <- droplevels(subset(yy, estimated==e & om.process == s))
+        for(v in c('SpawnBio_re', 'F_re', 'Recruit_0_re')[1]){
+            g <- ggplot(df, aes_string('year', v, group='replicate'))+ geom_line(alpha=.5) +
+                facet_grid(weighted~em.process) + theme_bw() + myylim +
+                    geom_hline(yintercept=0, col='red') +
+                        ggtitle(paste0(s, "; ", e))
+            temp <- paste('plots/ts', S.df$S[S.df$om.process==s], v,
+                          E.df$E[E.df$estimated==e], sep='_')
+            ggsave(paste0(temp, '.png'), g, width=ggwidth, height=7)
+        }
+    }
 }
 
 ### ------------------------------------------------------------
@@ -79,18 +63,17 @@ ggsave(paste0('plots/ts_recruits_', E.temp, '_re.png'), g, width=ggwidth, height
 ## get the OM true values
 om.devs.vec1 <- as.numeric(unlist(get_caseargs(case_folder, 'D1-E0-F1-S1-cod', case_files=case_files)$tv_params))[27:100]
 om.devs1 <- data.frame(expand.grid(year=27:100, estimated=E.df$estimated,
-                                     om_tv=S.df$om_tv[1], pct.ess=1.1))
+                                     om.process=S.df$om.process[1], weighted=1.1))
 om.devs1$randwalk <- om.devs.vec1
 om.devs.vec2 <- as.numeric(unlist(get_caseargs(case_folder, 'D1-E0-F1-S2-cod', case_files=case_files)$tv_params))[27:100]
 om.devs2 <- data.frame(expand.grid(year=27:100, estimated=E.df$estimated,
-                                     om_tv=S.df$om_tv[2], pct.ess=1.1))
+                                     om.process=S.df$om.process[2], weighted=1.1))
 om.devs2$randwalk <- om.devs.vec2
 om.devs <- rbind(om.devs1, om.devs2)
 om.devs$replicate <- 1
 om.devs$randwalk <- om.devs$randwalk+50.8
-
 ## Setup the data in long format with random wlak by year as variables
-temp <- c('selex.em','species','replicate', 'estimated','pct.ess', 'F', 'om_tv')
+temp <- c('selex.em','em.process','replicate', 'estimated','weighted', 'F', 'om.process')
 devs <- xx[,c(temp,names(xx)[grep('DEVr.*_em', x=names(xx))])]
 names(devs) <- gsub('SizeSel_1P_1_Fishery_DEVrwalk_|_em', '', x=names(devs))
 devs.long <- melt(devs, id.vars=temp, variable.name='year', value.name='dev')
@@ -99,37 +82,48 @@ devs.long <- ddply(devs.long, .variables=temp, mutate,
                       randwalk=cumsum(dev)+ selex.em)
 
 ## Plot the random walks as a function of E for a single rep
-for(replicate.temp in 1:5){
-    rep.devs.long <- subset(devs.long, replicate==replicate.temp & species=='codtv')
-    g <- ggplot(rep.devs.long, aes(year, randwalk, group=pct.ess, color=pct.ess, linetype=pct.ess==1)) +
-        geom_line() + facet_grid(estimated~om_tv) + theme_bw()+
+for(replicate.temp in 1:1){
+    rep.devs.long <- droplevels(subset(devs.long, replicate==replicate.temp
+                                       & em.process != 'EM sigma=0'))
+    g <- ggplot(rep.devs.long, aes(year, randwalk, group=weighted, color=weighted)) +
+        geom_line() + facet_grid(estimated~om.process+em.process) + theme_bw()+
             geom_line(data=om.devs, aes(year, randwalk), color='red', lwd=.5) +
-                geom_vline(xintercept=years.ages, lwd=.2, col=gray(.5)) +
+                geom_vline(xintercept=years.ages, lwd=.2, col=gray(.8)) +
                     ggtitle(paste("Random walk for replicate", replicate.temp))
     ggsave(paste0('plots/deviations_for_replicate_', replicate.temp, '.png'),
            g, width=ggwidth, height=ggheight)
 }
-## Plot the random walks for fixed ESS for all reps
-E.devs.long <- subset(devs.long, pct.ess==1)
-g <- ggplot(E.devs.long, aes(year, randwalk, group=replicate)) +
-    geom_line(alpha=.5) + geom_line(data=om.devs, aes(year, randwalk), color='red', lwd=.5) +
-        facet_grid(estimated~om_tv) + theme_bw()+
-            geom_vline(xintercept=years.ages, lwd=.2, col=gray(.5)) +
-                ggtitle(paste("Random walk for pct.ess=1"))
-ggsave(paste0('plots/deviations_for_ESS=1_','.png'), g, width=ggwidth, height=ggheight)
+## ## verify these are different, all values should be unique
+## subset(rep.devs.long, year==80)
+
+stop('end of file')
 ### ------------------------------------------------------------
 
 
+## ## Plot the random walks for fixed ESS for all reps
+## E.devs.long <- subset(devs.long, weighted=='Right-weighted')
+## g <- ggplot(E.devs.long, aes(year, randwalk, group=replicate)) +
+##     geom_line(alpha=.5) + geom_line(data=om.devs, aes(year, randwalk), color='red', lwd=.5) +
+##         facet_grid(estimated~om.process) + theme_bw()+
+##             geom_vline(xintercept=years.ages, lwd=.2, col=gray(.5)) +
+##                 ggtitle(paste("Random walk for weighted=1"))
+## ggsave(paste0('plots/deviations_for_ESS=1_','.png'), g, width=ggwidth, height=ggheight)
 
 
+## ## Quick r4ss plots for Ian to explore
+## if(file.exists('D1-E0-F1-S1-cod')){
+##     out <- r4ss::SS_output('D1-E0-F1-S1-cod/1/em/', covar=FALSE, ncols=300)
+##     SS_plots(replist=out, uncertainty=FALSE, png=TRUE, html=FALSE,
+##              printfolder='../../../plots/r4ss')
+## }
 
 
 ## ## WARNING! this uses the local variable for replicate.temp from above
 ## for(year.temp in c(30, 40, 50, 60, 70, 80, 90, 99)){
-##     temp <- ddply(subset(xx.devs.long, om_tv=='Process Error' & year==year.temp),
-##                   .(pct.ess, om_tv), mutate,
+##     temp <- ddply(subset(xx.devs.long, om.process=='Process Error' & year==year.temp),
+##                   .(weighted, om.process), mutate,
 ##                   dev.re=(dev-dev[which(estimated=='M & h fixed')])/dev[which(estimated=='M & h fixed')])
-##     g <- ggplot(temp, aes(pct.ess, dev.re, group=estimated, color=estimated))+ theme_bw()+
+##     g <- ggplot(temp, aes(weighted, dev.re, group=estimated, color=estimated))+ theme_bw()+
 ##         geom_line() + ggtitle(paste("Normalized Deviation for replicate",
 ##                                     replicate.temp, "in year", year.temp))
 ##     ggsave(paste0('plots/deviations_for_year_', year.temp, '.png'), g, width=9, height=5)
@@ -158,16 +152,16 @@ ggsave(paste0('plots/deviations_for_ESS=1_','.png'), g, width=ggwidth, height=gg
 
 
 
-## Look at trend in process error in selex
-S1.devs <- as.numeric(unlist(get_caseargs(case_folder, 'D1-E0-F1-S1-cod', case_files=case_files)$tv_params))
-S2.devs <- as.numeric(unlist(get_caseargs(case_folder, 'D1-E0-F1-S2-cod', case_files=case_files)$tv_params))
-sd(diff(S2.devs[27:100]))
-devs.df <- data.frame(cbind(years=1:100, S1=S1.devs, S2=S2.devs))
-devs.df.long <- melt(devs.df, 'years', variable.name='S')
-devs.df.long <- merge(devs.df.long, S.df, by='S')
-g <- ggplot(devs.df.long, aes(years, value+50.8, group=om_tv, color=om_tv))+
-    geom_line() + ylab('Sel_P1') + theme_bw()
-ggsave('plots/process_errors.png', g, width=ggwidth, height=ggheight)
+## ## Look at trend in process error in selex
+## S1.devs <- as.numeric(unlist(get_caseargs(case_folder, 'D1-E0-F1-S1-cod', case_files=case_files)$tv_params))
+## S2.devs <- as.numeric(unlist(get_caseargs(case_folder, 'D1-E0-F1-S2-cod', case_files=case_files)$tv_params))
+## sd(diff(S2.devs[27:100]))
+## devs.df <- data.frame(cbind(years=1:100, S1=S1.devs, S2=S2.devs))
+## devs.df.long <- melt(devs.df, 'years', variable.name='S')
+## devs.df.long <- merge(devs.df.long, S.df, by='S')
+## g <- ggplot(devs.df.long, aes(years, value+50.8, group=om.process, color=om.process))+
+##     geom_line() + ylab('Sel_P1') + theme_bw()
+## ggsave('plots/process_errors.png', g, width=ggwidth, height=ggheight)
 
 
 ## ## Look at differences in OM biomass trajectories for an arbitrary iteration
@@ -178,9 +172,9 @@ ggsave('plots/process_errors.png', g, width=ggwidth, height=ggheight)
 ## yy1 <- ddply(yy1, .(year, replicate), mutate,
 ##              SSB_re=(SpawnBio_om-SpawnBio_om[which(S=='S1')])/
 ##                  SpawnBio_om[which(S=='S1')])
-## g <- ggplot(subset(yy1,  replicate==1), aes(year, SpawnBio_om, group=om_tv, color=om_tv))+
+## g <- ggplot(subset(yy1,  replicate==1), aes(year, SpawnBio_om, group=om.process, color=om.process))+
 ##     geom_line() + ylim(0,5e9) + theme_bw()
 ## ggsave('plots/SSB_process_error1.png', g, width=ggwidth, height=ggheight)
-## g <- ggplot(yy1, aes(year, SSB_re, group=replicate, color=om_tv))+
+## g <- ggplot(yy1, aes(year, SSB_re, group=replicate, color=om.process))+
 ##     geom_point() + ylim(-1,1) + theme_bw()
 ## ggsave('plots/SSB_process_error_re.png', g, width=ggwidth, height=ggheight)

@@ -103,6 +103,8 @@ write_cases_estimation <- function(spp, case, dir=case_folder){
     writeLines(est, con=paste0(dir,"/", "E", case,"-", spp, ".txt"))
 }
 
+## Make some data frames that are matched to results later and used to haev
+## better names in plots more easily
 D.cases <- seq_along(ESS.scalar.vec)
 D.df <-
     data.frame(pct.ess=ESS.scalar.vec,
@@ -110,13 +112,20 @@ D.df <-
                weighted=factor(c('Under-weighted', 'Right-weighted', 'Over-weighted'),
                levels=c('Under-weighted', 'Right-weighted', 'Over-weighted')))
 S.cases <- seq_along(selex.scalar.vec)
-S.df <- data.frame(om_tv=factor(c("No Process Error", "Process Error")),
+S.df <- data.frame(om.process=factor(c("OM: sigma=0", "OM: sigma=.5"),levels=c("OM: sigma=0", "OM: sigma=.5")),
                    S=paste0('S', S.cases))
 E.cases <- c(0,1,2)
 E.df <-
-    data.frame(estimated=factor(c("M & h fixed", "h estimated",
-               "M estimated"), levels=c("M & h fixed", "h estimated",
-                               "M estimated")), E=paste0('E', E.cases))
+    data.frame(estimated=factor(c("Fixed", "h",
+               "M"), levels=c("Fixed", "h",
+                               "M")), E=paste0('E', E.cases))
+## selex.devs <- get_caseargs(case_folder, 'D1-E0-F1-S2-cod', case_files=case_files)$tv_params$SizeSel_1P_1_Fishery
+## sd(diff(selex.devs[-(1:25)]))
+species.df <- data.frame(species=factor(c('cod', 'codtv', 'codtvx'),
+                        levels=c('cod', 'codtv', 'codtvx')),
+                   em.process=factor(c('EM sigma=0', 'EM sigma=.5', 'EM sigma=1'),
+                   levels=c('EM sigma=0', 'EM sigma=.5', 'EM sigma=1')))
+
 
 ## Create case files dynamically for reproducibility
 unlink('cases', TRUE)
