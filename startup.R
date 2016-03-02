@@ -39,16 +39,18 @@ write_cases_data <- function(case, spp, Nsamp, survey.cv, ESS.scalar, dir=case_f
         index.years1 <- 'years;list(seq(76,100, by=2))'
         index.years2 <- 'years;list(c(seq(94,100,by=2)))'
         comp.years1 <- 'years;list(c(36,46,seq(51,66,by=5),71:100), seq(76,100, by=2))'
-        comp.years2 <- 'years;list(c(seq(86,90,by=10), 91:100), seq(94,100,by=2))'
+        comp.years2 <-
+            'years;list(c(seq(86,90,by=10), 91:100), seq(94,100,by=2))'
+        index <- c('fleets;c(2)', index.years1 , 'sds_obs;list(.2)')
     } else {
         ## determinstic runs for checks during development
         index.years1 <- index.years2 <- comp.years1 <- comp.years2 <-
             'years;list(1:100, 1:100)'
+        index <- c('fleets;c(2,3)', index.years1 , 'sds_obs;list(.01,.01)')
     }
     Nsamp.string <- paste0('Nsamp;list(', paste0(Nsamp, collapse=','), ')')
     ESS.string <- paste0('ESS;list(', paste0(Nsamp*ESS.scalar, collapse=','), ')')
     ## data rich w/ age comps
-    index <- c('fleets;c(2)', index.years1 , paste0('sds_obs;list(',survey.cv,'))'))
     lcomp <- c('fleets;c(1,2)', comp.years1, Nsamp.string, ESS.string,  'cpar;c(NA,NA)')
     agecomp <- lcomp
     writeLines(index, con=paste0(dir,"/", "index", case,"-", spp, ".txt"))
@@ -133,9 +135,9 @@ for(spp in species) {
     file.copy(from=paste0("models/F1-", spp,'.txt'), to=case_folder)
     ## write the data and binning cases
     trash <- sapply(D.cases, function(i){
-        write_cases_data(case=i, spp=spp, Nsamp=c(100,500), survey.cv=.2,
+        write_cases_data(case=i, spp=spp, Nsamp=c(100,500),
                          ESS.scalar=ESS.scalar.vec[i], deterministic=FALSE)
-        write_cases_data(case=100+i, spp=spp, Nsamp=c(5000,5000), survey.cv=.01,
+        write_cases_data(case=100+i, spp=spp, Nsamp=c(5000,5000),
                          ESS.scalar=ESS.scalar.vec[i], deterministic=TRUE)})
     trash <- sapply(S.cases, function(i)
         write_cases_selex(spp=spp, case=i, scalar=selex.scalar.vec[i]))

@@ -45,8 +45,14 @@ xx <- calculate_re(read.csv("ss3sim_scalar.csv"))
 saveRDS(xx, file='results/scalars.RData')
 yy <- calculate_re(read.csv("ss3sim_ts.csv"))
 saveRDS(yy, file='results/ts.RData')
+
 ### ------------------------------------------------------------
 
 ### ------------------------------------------------------------
 ## Step 2: Make plots and figures
 source('make_plots.R')
+
+
+
+
+source('run_deterministic.R')
