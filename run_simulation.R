@@ -54,5 +54,6 @@ source('make_plots.R')
 
 
 
-
+## see file plots/deterministic/make_plots_deterministic.R to make the
+## plots if this is rerun...
 source('run_deterministic.R')
