@@ -35,7 +35,7 @@ scenarios.cod <-
     expand_scenarios(cases=list(D=D.cases, F=1, S=S.cases, E=E.cases),
                      species='cod')
 run_ss3sim(iterations=1:Nsim, scenarios=scenarios.cod,
-           bias_adjust=TRUE, bias_nsim=Nbias,
+           bias_adjust=TRUE, bias_nsim=Nbias, hess_always=TRUE,
            parallel=TRUE, parallel_iterations=TRUE,
            case_folder=case_folder, om_dir=om.paths['cod'],
            em_dir=em.paths['cod'], case_files=case_files)
@@ -43,7 +43,7 @@ scenarios.codtv <-
     expand_scenarios(cases=list(D=D.cases, F=1, S=S.cases, E=E.cases),
                      species='codtv')
 run_ss3sim(iterations=1:Nsim, scenarios=scenarios.codtv,
-           bias_adjust=TRUE, bias_nsim=Nbias,
+           bias_adjust=TRUE, bias_nsim=Nbias, hess_always=TRUE,
            parallel=TRUE, parallel_iterations=TRUE,
            case_folder=case_folder, om_dir=om.paths['codtv'],
            em_dir=em.paths['codtv'], case_files=case_files)
@@ -51,7 +51,7 @@ scenarios.codtvx <-
     expand_scenarios(cases=list(D=D.cases, F=1, S=S.cases, E=E.cases),
                      species='codtvx')
 run_ss3sim(iterations=1:Nsim, scenarios=scenarios.codtvx,
-           bias_adjust=TRUE, bias_nsim=Nbias,
+           bias_adjust=TRUE, bias_nsim=Nbias, hess_always=TRUE,
            parallel=TRUE, parallel_iterations=TRUE,
            case_folder=case_folder, om_dir=om.paths['codtvx'],
            em_dir=em.paths['codtvx'], case_files=case_files)
