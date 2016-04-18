@@ -38,7 +38,7 @@ write_cases_data <- function(case, spp, Nsamp, survey.cv, ESS.scalar, dir=case_f
     if(!deterministic){
         index.years1 <- 'years;list(seq(76,100, by=2))'
         index.years2 <- 'years;list(c(seq(94,100,by=2)))'
-        comp.years1 <- 'years;list(c(36,46,seq(51,66,by=5),71:100), seq(76,100, by=2))'
+        comp.years1 <- 'years;list(c(seq(36,71, by=3),72:100), seq(76,100, by=2))'
         comp.years2 <-
             'years;list(c(seq(86,90,by=10), 91:100), seq(94,100,by=2))'
         index <- c('fleets;c(2)', index.years1 , 'sds_obs;list(.2)')
