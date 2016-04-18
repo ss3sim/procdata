@@ -5,7 +5,7 @@
 ## Step 0: Prepare the R workspace and generate case files
 ## devtools::install_github("ss3sim/ss3sim")
 ## devtools::install_github('r4ss/r4ss')
-cores <- 8   # parallel cores
+cores <- 18   # parallel cores
 Nsim <- 100                             # simulation replicates
 Nbias <- 10                             # bias adjustment runs
 ## scalars used to control ESS in the data case files, 1 means true ESS
@@ -36,7 +36,7 @@ scenarios.cod <-
                      species='cod')
 run_ss3sim(iterations=1:Nsim, scenarios=scenarios.cod,
            bias_adjust=TRUE, bias_nsim=Nbias, hess_always=TRUE,
-           parallel=TRUE, parallel_iterations=TRUE,
+           parallel=TRUE, parallel_iterations=FALSE,
            case_folder=case_folder, om_dir=om.paths['cod'],
            em_dir=em.paths['cod'], case_files=case_files)
 scenarios.codtv <-
@@ -44,7 +44,7 @@ scenarios.codtv <-
                      species='codtv')
 run_ss3sim(iterations=1:Nsim, scenarios=scenarios.codtv,
            bias_adjust=TRUE, bias_nsim=Nbias, hess_always=TRUE,
-           parallel=TRUE, parallel_iterations=TRUE,
+           parallel=TRUE, parallel_iterations=FALSE,
            case_folder=case_folder, om_dir=om.paths['codtv'],
            em_dir=em.paths['codtv'], case_files=case_files)
 scenarios.codtvx <-
@@ -52,7 +52,7 @@ scenarios.codtvx <-
                      species='codtvx')
 run_ss3sim(iterations=1:Nsim, scenarios=scenarios.codtvx,
            bias_adjust=TRUE, bias_nsim=Nbias, hess_always=TRUE,
-           parallel=TRUE, parallel_iterations=TRUE,
+           parallel=TRUE, parallel_iterations=FALSE,
            case_folder=case_folder, om_dir=om.paths['codtvx'],
            em_dir=em.paths['codtvx'], case_files=case_files)
 ## Read in results for both species and save them to file
