@@ -6,17 +6,29 @@
 cores <- 8   # parallel cores
 ## devtools::install_github("ss3sim/ss3sim")
 ## devtools::install_github('r4ss/r4ss')
-Nsim <- 200
+Nsim <- 100
 ## scalars used to control ESS in the data case files, 1 means true ESS
 ESS.scalar.vec <- c(.1, 1, 10)
 selex.scalar.vec <- c(0,20)
+## The models. The ESS.scalar.vec controls the OM dynamically. The EM is
+## controlled via models. cod is base case (no process error); codtv is the
+## EM with process error estimated at sigma .48 and codtvx is identical
+## except sigma is .96.
 species <- c('cod', 'codtv', 'codtvx')
+## F is fishing pattern; S is selectivity of the OM; E is estimation (M and
+## h)
 case_files <- list(F="F", D=c("index","lcomp","agecomp"), S='S', E='E')
 source("startup.R")
 ### ------------------------------------------------------------
 
 ### ------------------------------------------------------------
-## Step 1: Run the simulation and process the results
+### Step 1: Run the simulation and process the results.
+## First do deterministic runs to ensure everything is working right.  See
+## file plots/deterministic/make_plots_deterministic.R to make the plots if
+## this is rerun
+## source('run_deterministic.R')
+
+## Now run the real simulations
 scenarios.cod <-
     expand_scenarios(cases=list(D=D.cases, F=1, S=S.cases, E=E.cases),
                      species='cod')
@@ -45,7 +57,6 @@ xx <- calculate_re(read.csv("ss3sim_scalar.csv"))
 saveRDS(xx, file='results/scalars.RData')
 yy <- calculate_re(read.csv("ss3sim_ts.csv"))
 saveRDS(yy, file='results/ts.RData')
-
 ### ------------------------------------------------------------
 
 ### ------------------------------------------------------------
@@ -54,6 +65,3 @@ source('make_plots.R')
 
 
 
-## see file plots/deterministic/make_plots_deterministic.R to make the
-## plots if this is rerun...
-source('run_deterministic.R')
