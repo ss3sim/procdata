@@ -71,6 +71,6 @@ saveRDS(out, file='results/replist.RDS')
 ## Step 2: Make plots and figures
 source('load_results.R')
 source('make_plots.R')
-
+source('make_figures.R')
 
 

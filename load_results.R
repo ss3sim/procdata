@@ -31,9 +31,13 @@ xx$Fmsy_re <- xx$F_MSY_re
 ## test <- subset(xx, S=='S1' & E=='E0' & species=='cod' & D=='D2')
 ##
 ## drop those with too high max grad (very crude proxy for convergence)
-xx <- subset(xx, max_grad < .1)
+converged.table <- ddply(xx, .(om.process, em.process, estimated, weighted),
+      summarize, count=length(hessian), converged.pct=sum(hessian))
+write.table(converged.table,'results/converged.table.csv', sep=',', row.names=FALSE)
+
 
 replist <- readRDS('results/replist.RDS')
+selex <- replist$sizeselex
 
 ### Do some data massaging for the plots and figures specifically
 ## Data for figure 1
@@ -55,3 +59,30 @@ om.ssb.wide2 <- ddply(om.ssb.wide, .(year), summarize, med.s0=median(s0), med.s5
 F1 <- data.frame(year=1:100, F=as.numeric(unlist(get_caseargs(case_folder, 'D1-E0-F1-S1-cod', case_files=case_files)$F$fvals)))
 
 
+
+## Random walk patterns for figure 3
+om.devs.vec1 <- as.numeric(unlist(get_caseargs(case_folder, 'D1-E0-F1-S1-cod', case_files=case_files)$tv_params))[27:100]
+om.devs1 <- data.frame(expand.grid(year=27:100, estimated=E.df$estimated,
+                                     om.process=S.df$om.process[1], weighted=1.1))
+om.devs1$randwalk <- om.devs.vec1
+om.devs.vec2 <- as.numeric(unlist(get_caseargs(case_folder, 'D1-E0-F1-S2-cod', case_files=case_files)$tv_params))[27:100]
+om.devs2 <- data.frame(expand.grid(year=27:100, estimated=E.df$estimated,
+                                     om.process=S.df$om.process[2], weighted=1.1))
+om.devs2$randwalk <- om.devs.vec2
+om.devs <- rbind(om.devs1, om.devs2)
+om.devs$replicate <- 1
+om.devs$randwalk <- om.devs$randwalk+50.8
+## Setup the data in long format with random wlak by year as variables
+temp <- c('selex.em','em.process','replicate', 'estimated','weighted', 'F', 'om.process')
+devs <- xx[,c(temp,names(xx)[grep('DEVr.*_em', x=names(xx))])]
+names(devs) <- gsub('SizeSel_1P_1_Fishery_DEVrwalk_|_em', '', x=names(devs))
+devs.long <- melt(devs, id.vars=temp, variable.name='year', value.name='dev')
+devs.long$year <- as.numeric(as.character(devs.long$year))
+devs.long <- ddply(devs.long, .variables=temp, mutate,
+                      randwalk=cumsum(dev)+ selex.em)
+devs.long <-
+  droplevels(subset(devs.long,  em.process != 'EM sigma=0' &
+                        estimated=='Fixed'))
+devs.long.medians <-
+  ddply(devs.long, .(em.process, weighted, om.process, year),
+        summarize, randwalk.median=median(randwalk))

@@ -30,38 +30,15 @@ make.file <- function(type=c("png","pdf", "none"), filename,
 }
 
 
-selex <- replist$sizeselex
-
-par(mfcol=c(2,1), mar=c(1,0,0,0), oma=c(2,3,2,1), mgp=c(2,.2,0),
-    cex.axis=.8, tck=-.02, col.axis=col.label)
-plot(x,y, type='l', ann=FALSE, axes=FALSE)
-print.letter('(a)', xy, cex=.8)
-axis(2, col=col.tick); box(col=col.border)
-mtext("y", 2, line=1.5, cex=1)
-plot(x,y, type='l', ann=FALSE, axes=FALSE)
-axis(2, col=col.tick);
-axis(1, col=col.tick);
-mtext("y", 2, line=1.5, cex=1)
-mtext("x", 1, line=1.5, cex=1)
-mtext("Title", 3, line=.25, cex=1.3, outer=TRUE)
-print.letter("fig 2", xy, cex=.8)
-box(col=col.border)
-
-
-## End(Not run)
-
 setwd('figures')
 file.type <- 'png'
-## 1. image plot / figure/table of lit. review
+## 1. selex patterns in the OM
 source("figure1.R")
-## 2. experimental design
+## 2. OM SSB trends
 source("figure2.R")
-## 3. OM pop bin results
+## 3. Estimates of random walk devs
 source("figure3.R")
-## 4. estimation bin results
-source('figure4.R')
-## 5. performance: runtime, iterations, convergence etc.
-source('figure5.R')
-## 6. run time and accuracy for binning scenarios
-source('figure6.R')
+## 4, 5 and 6. Relative error in SSB for different cases
+alpha.levels <- c(.1,.2,.5, .7)
+source('figure456.R')
 setwd('..')
