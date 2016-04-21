@@ -27,14 +27,6 @@ years.ages <- get_caseargs(case_folder, 'D1-E0-F1-S1-cod', case_files=case_files
 xx$M_re <- xx$NatM_p_1_Fem_GP_1_re
 xx$steepness_re <- xx$SR_BH_steep_re
 xx$Fmsy_re <- xx$F_MSY_re
-## ## make sure we got the right number of replicates
-## test <- subset(xx, S=='S1' & E=='E0' & species=='cod' & D=='D2')
-##
-## drop those with too high max grad (very crude proxy for convergence)
-converged.table <- ddply(xx, .(om.process, em.process, estimated, weighted),
-      summarize, count=length(hessian), converged.pct=sum(hessian))
-write.table(converged.table,'results/converged.table.csv', sep=',', row.names=FALSE)
-
 
 replist <- readRDS('results/replist.RDS')
 selex <- replist$sizeselex

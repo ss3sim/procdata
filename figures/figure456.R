@@ -31,12 +31,12 @@ plot.ts <- function(e, s, ylim=c(-2,2), alpha.levels){
       cex.axis=1, tck=-.02, col.axis=col.label)
   k <- 1
   for(em in unique(df$em.process)){
-    for(ww in unique(df$weighted)){
+    for(ww in c('Under-weighted', 'Right-weighted', 'Over-weighted')){
       df2 <- droplevels(subset(df, em.process==em & weighted == ww))
       df2 <- df2[order(df2$replicate, df2$year),c('year', 'replicate', 'SpawnBio_re')]
       df2.wide <- dcast(df2, year~replicate, value.var='SpawnBio_re')[,-1]
       plot(0,0, type='n', xlim=xlim, ylim=ylim, axes=FALSE, ann=FALSE)
-      add.polygon(df=df2.wide, x=1:100, alpha.level=alpha.levels)
+      add.polygon(df=t(df2.wide), x=1:100, alpha.level=alpha.levels)
       abline(h=0, col='red')
       box(col=col.border)
       if(k %in% 1:3){

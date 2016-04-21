@@ -1,0 +1,19 @@
+"om.process","em.process","estimated","Under-weighted","Right-weighted","Over-weighted"
+"OM: sigma=0","EM sigma=0","Fixed",0.05,0.04,0.05
+"OM: sigma=0","EM sigma=0","h",0.11,0.09,0.12
+"OM: sigma=0","EM sigma=0","M",0.05,0.04,0.05
+"OM: sigma=0","EM sigma=.5","Fixed",0.05,0.04,0.05
+"OM: sigma=0","EM sigma=.5","h",0.11,0.09,0.12
+"OM: sigma=0","EM sigma=.5","M",0.05,0.05,0.05
+"OM: sigma=0","EM sigma=1","Fixed",0.05,0.04,0.05
+"OM: sigma=0","EM sigma=1","h",0.11,0.09,0.12
+"OM: sigma=0","EM sigma=1","M",0.05,0.04,0.06
+"OM: sigma=.5","EM sigma=0","Fixed",0.05,0.13,0.26
+"OM: sigma=.5","EM sigma=0","h",0.4,0.46,0.5
+"OM: sigma=.5","EM sigma=0","M",0.06,0.12,0.25
+"OM: sigma=.5","EM sigma=.5","Fixed",0.04,0.04,0.05
+"OM: sigma=.5","EM sigma=.5","h",0.18,0.11,0.14
+"OM: sigma=.5","EM sigma=.5","M",0.05,0.04,0.06
+"OM: sigma=.5","EM sigma=1","Fixed",0.05,0.04,0.05
+"OM: sigma=.5","EM sigma=1","h",0.12,0.11,0.14
+"OM: sigma=.5","EM sigma=1","M",0.05,0.04,0.05
