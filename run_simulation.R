@@ -71,6 +71,14 @@ saveRDS(replist, file='results/replist.RDS')
 ## Step 2: Make plots and figures
 source('load_results.R')
 source('make_plots.R')
+source('make_figures.R')
 
-
-
+## Tables
+table.long <-
+  ddply(xx, .(om.process, em.process, estimated, weighted),
+        summarize, count=length(hessian), converged.pct=sum(hessian),
+        MARE.ssb=round(median(abs(SSB_MSY_re)),2))
+table.MSY.mare <- dcast(table.long, om.process+em.process+estimated~weighted, value.var='MARE.ssb')
+write.table(table.MSY.mare,'results/table.MSY.mare.csv', sep=',', row.names=FALSE)
+table.converged <- dcast(table.long, om.process+em.process+estimated~weighted, value.var='converged.pct')
+write.table(table.converged,'results/table.converged.csv', sep=',', row.names=FALSE)
