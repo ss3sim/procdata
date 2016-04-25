@@ -64,7 +64,7 @@ yy <- calculate_re(read.csv("ss3sim_ts.csv"))
 saveRDS(yy, file='results/ts.RData')
 ## Save an OM r4ss output list which is used in some plots
 replist <- SS_output(dir='D1-E0-F1-S1-cod/1/om/', covar=FALSE, ncols=250)
-saveRDS(out, file='results/replist.RDS')
+saveRDS(replist, file='results/replist.RDS')
 ### ------------------------------------------------------------
 
 ### ------------------------------------------------------------
