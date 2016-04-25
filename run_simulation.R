@@ -61,6 +61,9 @@ get_results_all(user=c(scenarios.codtvx, scenarios.codtv, scenarios.cod),
 xx <- calculate_re(read.csv("ss3sim_scalar.csv"))
 saveRDS(xx, file='results/scalars.RData')
 yy <- calculate_re(read.csv("ss3sim_ts.csv"))
+## This file is too big so drop unused columns
+yy <- yy[, c('D', 'S', 'E', 'species', 'SpawnBio_om', 'SpawnBio_em', 'year', 'replicate',
+             'SpawnBio_re', 'ID')]
 saveRDS(yy, file='results/ts.RData')
 ## Save an OM r4ss output list which is used in some plots
 replist <- SS_output(dir='D1-E0-F1-S1-cod/1/om/', covar=FALSE, ncols=250)
