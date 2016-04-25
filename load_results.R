@@ -7,8 +7,7 @@ xx <- readRDS('results/scalars.RData')
 ##yy <- read.csv("ss3sim_ts.csv")
 yy <- readRDS('results/ts.RData')
 ## create meta dataframe to merge into results
-xx <- merge(xx, yy[yy$year==100, c('ID', 'year', 'SpawnBio_om',
-                   'SpawnBio_em')], by='ID')
+xx <- merge(xx, yy[yy$year==100, c('ID', 'year', 'SpawnBio_om', 'SpawnBio_em')], by='ID')
 xx <- within(xx, {
              depletion_om = SpawnBio_om/SSB_Unfished_om
              depletion_em = SpawnBio_em/SSB_Unfished_em
