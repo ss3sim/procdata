@@ -96,10 +96,13 @@ source('make_figures.R')
 table.long <-
   ddply(xx, .(om.process, em.process, estimated, weighted),
         summarize, count=length(hessian), converged.pct=sum(hessian),
+        runtime=median(RunTime),
         MARE.ssb=round(median(abs(SSB_MSY_re)),2))
 table.MSY.mare <- dcast(table.long, om.process+em.process+estimated~weighted, value.var='MARE.ssb')
 write.table(table.MSY.mare,'results/table.MSY.mare.csv', sep=',', row.names=FALSE)
 table.converged <- dcast(table.long, om.process+em.process+estimated~weighted, value.var='converged.pct')
 write.table(table.converged,'results/table.converged.csv', sep=',', row.names=FALSE)
+table.runtime <- dcast(table.long, om.process+em.process+estimated~weighted, value.var='runtime')
+write.table(table.runtime,'results/table.runtime.csv', sep=',', row.names=FALSE)
 
 
