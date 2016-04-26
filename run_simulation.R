@@ -68,6 +68,22 @@ saveRDS(yy, file='results/ts.RData')
 ## Save an OM r4ss output list which is used in some plots
 replist <- SS_output(dir='D1-E0-F1-S1-cod/1/om/', covar=FALSE, ncols=250)
 saveRDS(replist, file='results/replist.RDS')
+
+## Quick code to check for .cor file, which is our way of testing for
+## convergence (i.e., Hessian was inverted).
+scens <- id_scenarios(getwd())
+converged <- ldply(scens, function(i){
+    x <- list.files(i)
+    print(i)
+    reps <- x[-grep('bias|.csv', x)]
+    ldply(reps, function(x){
+        data.frame(ID=paste0(i, '-', x), rep=as.numeric(x),
+                   converged.cor=file.exists(file.path(i, x, 'em','ss3_24~2.cor')),
+                   converged.sso=file.exists(file.path(i, x, 'em','covar.sso')),
+                   converged.covar=file.exists(file.path(i, x, 'em','admodel.cov'))
+                   )})
+})
+write.table(x=converged, file='results/converged.csv', sep=',', row.names=FALSE)
 ### ------------------------------------------------------------
 
 ### ------------------------------------------------------------
@@ -86,14 +102,4 @@ write.table(table.MSY.mare,'results/table.MSY.mare.csv', sep=',', row.names=FALS
 table.converged <- dcast(table.long, om.process+em.process+estimated~weighted, value.var='converged.pct')
 write.table(table.converged,'results/table.converged.csv', sep=',', row.names=FALSE)
 
-## Quick code to check for .cor file, which is our way of testing for
-## convergence
-scens <- id_scenarios(getwd())
-converged <- ldply(scens, function(i){
-        x <- list.files(i)
-        reps <- x[x!='bias']
-ldply(file.path(i, reps, 'em','ss3_24~2.cor'), function(x){
-        cbind(scenario=i, converged=file.exists(x))})
-})
-converged
 
