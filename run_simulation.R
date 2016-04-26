@@ -85,3 +85,15 @@ table.MSY.mare <- dcast(table.long, om.process+em.process+estimated~weighted, va
 write.table(table.MSY.mare,'results/table.MSY.mare.csv', sep=',', row.names=FALSE)
 table.converged <- dcast(table.long, om.process+em.process+estimated~weighted, value.var='converged.pct')
 write.table(table.converged,'results/table.converged.csv', sep=',', row.names=FALSE)
+
+## Quick code to check for .cor file, which is our way of testing for
+## convergence
+scens <- id_scenarios(getwd())
+converged <- ldply(scens, function(i){
+        x <- list.files(i)
+        reps <- x[x!='bias']
+ldply(file.path(i, reps, 'em','ss3_24~2.cor'), function(x){
+        cbind(scenario=i, converged=file.exists(x))})
+})
+converged
+
