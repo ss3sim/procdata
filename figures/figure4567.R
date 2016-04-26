@@ -43,10 +43,11 @@ plot.ts <- function(e, s, ylim=c(-2,2), alpha.levels){
         axis(2, col=col.tick)
         mtext(ww, side=2, line=2.75, cex=cex.lab*1.15)
       }
-      if(k %in% c(3,6,9))axis(1, col=col.tick)
-      if(k %in% c(1,4,7)) {
-        mtext(em, side=3, line=.5, cex=cex.lab*1.15)
-      }
+      if(k %in% c(3,6,9)) axis(1, col=col.tick)
+      if(k==1) mtext(expression(EM[0]: ~ sigma[s] == 0), side=3, line=.5, cex=cex.lab*1.15)
+      if(k==4) mtext(expression(EM[1]: ~ sigma[s] == 0.5), side=3, line=.5, cex=cex.lab*1.15)
+      if(k==7) mtext(expression(EM[2]: ~ sigma[s] == 1), side=3, line=.5,
+           cex=cex.lab*1.15)
       k <- k+1
     }
   }
@@ -57,15 +58,20 @@ plot.ts <- function(e, s, ylim=c(-2,2), alpha.levels){
 
 make.file(file.type, filename='figure4', width=width,
           height=5, res=500)
-plot.ts(e='Fixed', s='OM: sigma=0', alpha.levels=alpha.levels)
+plot.ts(e='Fixed', s='OM: sigma=0', alpha.levels=alpha.levels, ylim=ylim)
 dev.off()
 
 make.file(file.type, filename='figure5', width=width,
           height=5, res=500)
-plot.ts(e='Fixed', s='OM: sigma=.5', alpha.levels=alpha.levels)
+plot.ts(e='Fixed', s='OM: sigma=.5', alpha.levels=alpha.levels, ylim=ylim)
 dev.off()
 
 make.file(file.type, filename='figure6', width=width,
           height=5, res=500)
-plot.ts(e='M', s='OM: sigma=.5', alpha.levels=alpha.levels)
+plot.ts(e='M', s='OM: sigma=.5', alpha.levels=alpha.levels, ylim=ylim)
+dev.off()
+
+make.file(file.type, filename='figure7', width=width,
+          height=5, res=500)
+plot.ts(e='h', s='OM: sigma=.5', alpha.levels=alpha.levels, ylim=ylim)
 dev.off()

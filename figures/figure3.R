@@ -14,7 +14,7 @@ k <- 1
 weights <- as.character(unique(devs.long.medians$weighted))
 make.file(file.type, filename="figure3_randwalk", width=width,
           height=5, res=500)
-par(mfcol=c(2,2), mar=0*c(1,1,1,1), oma=c(2.75,2.75,2.5,1), mgp=c(2,.1,0),
+par(mfcol=c(2,2), mar=0*c(1,1,1,1), oma=c(2.75,2.75,2.5,2.5), mgp=c(2,.1,0),
     cex.axis=1, tck=-.02, col.axis=col.label)
 for(em in unique(devs.long.medians$em.process)){
   for(om in unique(devs.long.medians$om.process)){
@@ -33,8 +33,10 @@ for(em in unique(devs.long.medians$em.process)){
       print.letter(paste0('(',letters[k], ')'), xy, cex=1);
       if(k==1 | k==2) axis(2, col=col.tick); box(col=col.border)
       if(k==2 | k==4) axis(1, col=col.tick); box(col=col.border)
-      if(k==1) mtext(em, side=3, line=.5, cex=cex.lab*1.15)
-      if(k==3) mtext(em, side=3, line=.5, cex=cex.lab*1.15)
+      if(k==1) mtext(expression(EM[1]: sigma[s] == 0.5), side=3, line=.5, cex=cex.lab*1.15)
+      if(k==3) mtext(expression(EM[2]: sigma[s] == 1.0), side=3, line=.5, cex=cex.lab*1.15)
+      if(k==3) mtext(expression(OM[0]: sigma[s] == 0), side=4, line=.9, cex=cex.lab*1.15)
+      if(k==4) mtext(expression(OM[1]: sigma[s] == 0.5), side=4, line=.9, cex=cex.lab*1.15)
     }
     k <- k+1
   }

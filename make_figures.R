@@ -39,6 +39,7 @@ source("figure2.R")
 ## 3. Estimates of random walk devs
 source("figure3.R")
 ## 4, 5 and 6. Relative error in SSB for different cases
-alpha.levels <- c(.1,.2,.5, .7)
-source('figure456.R')
+alpha.levels <- c(.25,.5, .75, .95)
+ylim <- c(-1.1,1.1)
+source('figure4567.R')
 setwd('..')

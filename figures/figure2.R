@@ -19,7 +19,7 @@ legend('bottom', legend=c('Without OM process error',
        col=cols, bty='n')
 print.letter('(a)', xy, cex=.6)
 axis(2, col=col.tick); box(col=col.border)
-mtext("Spawning Biomass (x 1e9)", 2, line=line.lab, cex=cex.lab)
+mtext("Spawning Biomass", 2, line=line.lab, cex=cex.lab)
 plot(F1$year, F1$F, type='l', axes=FALSE, ann=FALSE, lwd=lwd, xlim=xlim)
 print.letter('(b)', xy, cex=.6)
 axis(2, col=col.tick); box(col=col.border)
