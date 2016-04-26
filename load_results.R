@@ -27,6 +27,10 @@ xx$M_re <- xx$NatM_p_1_Fem_GP_1_re
 xx$steepness_re <- xx$SR_BH_steep_re
 xx$Fmsy_re <- xx$F_MSY_re
 
+## Filter out those that didn't converge
+xx$converged <- with(xx, ifelse(!hessian | params_on_bound_em>0, FALSE, TRUE))
+
+
 replist <- readRDS('results/replist.RDS')
 selex <- replist$sizeselex
 

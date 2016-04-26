@@ -1,4 +1,6 @@
 
+g <- ggplot(subset(xx, estimated=='h'), aes(weighted, y=SR_BH_steep_em)) + geom_violin() + facet_grid(om.process~em.process)
+ggsave('plots/steepness_estimates.png', g, width=ggwidth, height=ggheight)
 
 vars <- c('M_re', 'steepness_re', 'Fmsy_re', 'SSB_MSY_re',
           'terminalSSB_re', 'depletion_re')
