@@ -1,6 +1,21 @@
 
+## Dig into the case where EM is misspecified and trying to estimate
+## steepness and M.
 g <- ggplot(subset(xx, estimated=='h'), aes(weighted, y=SR_BH_steep_em)) + geom_violin() + facet_grid(om.process~em.process)
 ggsave('plots/steepness_estimates.png', g, width=ggwidth, height=ggheight)
+g <- ggplot(subset(xx, estimated=='M'), aes(weighted, y=NatM_p_1_Fem_GP_1_em)) + geom_violin() + facet_grid(om.process~em.process)
+ggsave('plots/M_estimates.png', g, width=ggwidth, height=ggheight)
+
+
+temp <- subset(xx, estimated=='M' & om.process=='OM: sigma=.5' &
+                 em.process=='EM sigma=0',
+               select=c('ID','NatM_p_1_Fem_GP_1_em', 'SR_BH_steep_em'))
+temp.ts <- subset(yy, estimated=='M' & om.process=='OM: sigma=.5' & em.process=='EM sigma=0' )
+temp2 <- merge(temp.ts, temp, by='ID')
+g <- ggplot(temp2, aes(year, SpawnBio_re, color=NatM_p_1_Fem_GP_1_em, group=replicate)) +
+  geom_line(alpha=.5) + facet_grid(weighted~om.process) +
+    scale_colour_gradient(low='red')
+ggsave('plots/M_vs_SSB.png', g, width=ggwidth, height=ggheight)
 
 vars <- c('M_re', 'steepness_re', 'Fmsy_re', 'SSB_MSY_re',
           'terminalSSB_re', 'depletion_re')
