@@ -20,7 +20,7 @@ add.polygon <- function(df, x=as.numeric(gsub("X", x=names(df), "")),
                 col=col.poly, border=NA)
     }
 }
-plot.ts <- function(e, s, ylim=c(-2,2), alpha.levels){
+plot.ssb <- function(e, s, ylim=c(-2,2), alpha.levels, xy){
   df <- droplevels(subset(yy, estimated==e & om.process == s,
                           select=c(em.process, SpawnBio_re, year, replicate,weighted)))
   xy <- c(.05,.95)
@@ -44,10 +44,11 @@ plot.ts <- function(e, s, ylim=c(-2,2), alpha.levels){
         mtext(ww, side=2, line=2.75, cex=cex.lab*1.15)
       }
       if(k %in% c(3,6,9)) axis(1, col=col.tick)
-      if(k==1) mtext(expression(EM[0]: ~ sigma[s] == 0), side=3, line=.5, cex=cex.lab*1.15)
-      if(k==4) mtext(expression(EM[1]: ~ sigma[s] == 0.5), side=3, line=.5, cex=cex.lab*1.15)
-      if(k==7) mtext(expression(EM[2]: ~ sigma[s] == 1), side=3, line=.5,
+      if(k==1) mtext(expression(S[0]:~ sigma == 0), side=3, line=.5, cex=cex.lab*1.15)
+      if(k==4) mtext(expression(S[1]: ~ sigma == 0.5), side=3, line=.5, cex=cex.lab*1.15)
+      if(k==7) mtext(expression(S[2]: ~ sigma == 1), side=3, line=.5,
            cex=cex.lab*1.15)
+      print.letter(paste0('(', letters[k], ')'), xy=xy)
       k <- k+1
     }
   }
@@ -56,22 +57,23 @@ plot.ts <- function(e, s, ylim=c(-2,2), alpha.levels){
         cex=cex.lab, outer=TRUE)
 }
 
+xy <- c(.05, .95)
 make.file(file.type, filename='figure4', width=width,
           height=5, res=500)
-plot.ts(e='Fixed', s='OM: sigma=0', alpha.levels=alpha.levels, ylim=ylim)
+plot.ssb(e='Fixed', s='OM: sigma=0', alpha.levels=alpha.levels, ylim=ylim, xy=xy)
 dev.off()
 
 make.file(file.type, filename='figure5', width=width,
           height=5, res=500)
-plot.ts(e='Fixed', s='OM: sigma=.5', alpha.levels=alpha.levels, ylim=ylim)
+plot.ssb(e='Fixed', s='OM: sigma=.5', alpha.levels=alpha.levels, ylim=ylim, xy=xy)
 dev.off()
 
 make.file(file.type, filename='figure6', width=width,
           height=5, res=500)
-plot.ts(e='M', s='OM: sigma=.5', alpha.levels=alpha.levels, ylim=ylim)
+plot.ssb(e='M', s='OM: sigma=.5', alpha.levels=alpha.levels, ylim=ylim, xy=xy)
 dev.off()
 
 make.file(file.type, filename='figure7', width=width,
           height=5, res=500)
-plot.ts(e='h', s='OM: sigma=.5', alpha.levels=alpha.levels, ylim=ylim)
+plot.ssb(e='h', s='OM: sigma=.5', alpha.levels=alpha.levels, ylim=ylim, xy=xy)
 dev.off()
