@@ -42,15 +42,5 @@ source("figure3.R")
 alpha.levels <- c(.25,.5, .75, .95)
 ylim <- c(-1.1,1.1)
 source('figure456.R')
-
-vars <- c('M_re', 'steepness_re', 'Fmsy_re', 'SSB_MSY_re',
-          'terminalSSB_re', 'depletion_re')
-myylim <- ylim(-1.5,1.5)
-for(v in vars){
-    g <- ggplot(xx, aes_string(x='estimated', y=v, fill='estimated')) + geom_violin()+
-        facet_grid(weighted~om.process+em.process) +  geom_hline(yintercept=0, col='red') +
-            myylim + theme(legend.position='none')
-    ggsave(paste0('plots/scalars_',v,'.png'), g, width=ggwidth, height=ggheight)
-}
-
+source('figure78.R')
 setwd('..')

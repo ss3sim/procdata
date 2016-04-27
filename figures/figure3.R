@@ -14,7 +14,7 @@ k <- 1
 weights <- as.character(unique(devs.long.medians$weighted))
 make.file(file.type, filename="figure3_randwalk", width=width,
           height=5, res=500)
-par(mfcol=c(2,2), mar=0*c(1,1,1,1), oma=c(2.75,2.75,2.5,2.5), mgp=c(2,.1,0),
+par(mfcol=c(2,2), mar=0*c(1,1,1,1), oma=c(2.75,2.75,2.5,.75), mgp=c(2,.1,0),
     cex.axis=1, tck=-.02, col.axis=col.label)
 for(em in unique(devs.long.medians$em.process)){
   for(om in unique(devs.long.medians$om.process)){
@@ -28,15 +28,15 @@ for(em in unique(devs.long.medians$em.process)){
                    em.process==em & om.process==om & weighted == weights[ww])
       lines(x=zz$year, y=zz$randwalk.median, col=cols[ww], lty=ltys[ww], lwd=lwd)
       if(k==1)
-        legend('topright', legend=weights, cex=1, col=cols, bty='n',
-               lty=ltys, lwd=lwd)
+        legend('topright', legend=c(weights, 'Truth'), cex=1, col=c(cols,gray(.5)), bty='n',
+               lty=c(ltys, 3), lwd=lwd)
       print.letter(paste0('(',letters[k], ')'), xy, cex=1);
       if(k==1 | k==2) axis(2, col=col.tick); box(col=col.border)
       if(k==2 | k==4) axis(1, col=col.tick); box(col=col.border)
-      if(k==1) mtext(expression(EM[1]: sigma[s] == 0.5), side=3, line=.5, cex=cex.lab*1.15)
-      if(k==3) mtext(expression(EM[2]: sigma[s] == 1.0), side=3, line=.5, cex=cex.lab*1.15)
-      if(k==3) mtext(expression(OM[0]: sigma[s] == 0), side=4, line=.9, cex=cex.lab*1.15)
-      if(k==4) mtext(expression(OM[1]: sigma[s] == 0.5), side=4, line=.9, cex=cex.lab*1.15)
+      if(k==1) mtext(expression(S[1]: sigma == 0.5), side=3, line=.5, cex=cex.lab*1.15)
+      if(k==3) mtext(expression(S[2]: sigma == 1.0), side=3, line=.5, cex=cex.lab*1.15)
+      ## if(k==3) mtext(expression(OM[0]: sigma[s] == 0), side=4, line=.9, cex=cex.lab*1.15)
+      ## if(k==4) mtext(expression(OM[1]: sigma[s] == 0.5), side=4, line=.9, cex=cex.lab*1.15)
     }
     k <- k+1
   }
